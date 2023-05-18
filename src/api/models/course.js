@@ -1,3 +1,5 @@
+const { Sequelize } = require('sequelize')
+
 module.exports = (sequelize, DataTypes) => {
     const courses = sequelize.define('courses', {
         id: {
@@ -29,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         lastest_update: {
             type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
             allowNull: true
         },
         upload_date: {
