@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        last_update: {
+        lastest_update: {
             type: DataTypes.DATE,
             allowNull: true
         },

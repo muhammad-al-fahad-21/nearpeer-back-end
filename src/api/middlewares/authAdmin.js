@@ -11,7 +11,7 @@ const isAdmin = async (req, res, next) => {
             }
         })
 
-        if(!user.isAdmin) return res.status(401).json({success: false, msg: "Admin resources access denied!"})
+        if(!user.admin) return res.status(401).json({success: false, msg: "Admin resources access denied!"})
 
         next()
 

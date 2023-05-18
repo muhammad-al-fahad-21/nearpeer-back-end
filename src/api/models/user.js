@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        isAdmin: {
+        admin: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
             allowNull: false

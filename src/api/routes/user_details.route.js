@@ -6,12 +6,16 @@ const isAdmin = require('../middlewares/authAdmin')
 
 router.route('/')
     .get(isAuthenticated, isAdmin, controller.getAllUsers)
+    .delete(isAuthenticated, isAdmin, controller.deleteUser)
+
+router.route('/info')
+    .get(isAuthenticated, isAdmin, controller.getUser)
 
 router.route('/profile')
-    .get(isAuthenticated, controller.getUserProfile)
+    .get(isAuthenticated, controller.getProfile)
     
 router.route('/:id')
-    .put(isAuthenticated, controller.updateUser)
+    .put(isAuthenticated, controller.updateProfile)
 
 router.route('/isAdmin/:id')
     .put(isAuthenticated, isAdmin, controller.isAdmin)
