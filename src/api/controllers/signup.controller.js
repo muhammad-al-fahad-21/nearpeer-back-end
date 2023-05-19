@@ -1,6 +1,7 @@
 const models = require('../models');
 const bcrypt = require('bcrypt');
 const validateEmail = require('../../config/validation')
+const createRefreshToken = require('../../config/token')
 
 class UserController {
     static signupUser = async (req, res) => {
@@ -24,7 +25,13 @@ class UserController {
                 name, password: encryptedPassword, email, city, dob, phone, gender
             })
 
-            res.status(202).json({success: true, msg: "Signup Successgully", user: user})
+            if(!user) return res.status(404).json({status: false, msg: "New user is not registered successfully!"})
+
+            const refresh_token = createRefreshToken({id: user.id})
+
+            res.cookie('refresh_token', refresh_token, { httpOnly: true });
+
+            res.status(202).json({success: true, msg: "Signup Successfully", refresh_token: refresh_token, user: user})
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
         }
