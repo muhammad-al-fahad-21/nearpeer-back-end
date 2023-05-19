@@ -41,11 +41,6 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: false,
             allowNull: false
         },
-        root: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
-            allowNull: false
-        },
         created_at: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,

@@ -5,11 +5,11 @@ const isAuthenticated = (req, res, next) => {
 
         const token = req.header('Authorization');
 
-        if(!token) return res.status(400).json({success: false, msg: 'Token has been expired, please login to system'})
+        if(!token) return res.status(400).json({success: false, msg: '400, Invalid Authentication'})
 
         jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
 
-            if(err) return res.status(400).json({success: false, msg: 'Token has been expired, please login to system'})
+            if(err) return res.status(400).json({success: false, msg: '400, Invalid Authentication'})
 
             req.user = user
 
