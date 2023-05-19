@@ -6,11 +6,11 @@ class CourseController {
 
             const user = req.header('user_id');
 
-            const {title, description, rating, publisher, lastest_update, upload_date } = req.body
+            const {title, description, rating, publisher, upload_date } = req.body
 
             if(user <= 0) return res.status(402).json({success: false, msg: "Required a valid user id!"})
 
-            const find = models.users.findOne({
+            const find = await models.users.findOne({
                 where: {
                     id: user
                 }
@@ -19,7 +19,7 @@ class CourseController {
             if(!find) return res.status(404).json({success: false, msg: "User does not exists!"})
 
             const course = await models.courses.create({
-                user_id: user, title, description, rating, publisher, lastest_update, upload_date
+                user_id: user, title, description, rating, publisher, upload_date
             })
 
             res.status(202).json({success: true, msg: `Successfully created course for ${find.name}`, course: course})

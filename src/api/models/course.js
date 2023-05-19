@@ -29,10 +29,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        lastest_update: {
+        last_update: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,
-            allowNull: true
+            allowNull: false
         },
         upload_date: {
             type: DataTypes.DATE,
