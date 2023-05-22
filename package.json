@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll --detectOpenHandles --forceExit ./src/api/tests/unit",
     "start": "nodemon ./src/index.js"
   },
   "repository": {
@@ -26,5 +26,8 @@
     "morgan": "^1.10.0",
     "pg": "^8.10.0",
     "sequelize": "^6.31.1"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
   }
 }

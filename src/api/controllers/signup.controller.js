@@ -17,15 +17,12 @@ class UserController {
             })
 
             if(findUser) return res.status(400).json({status: false, msg: "This email is already existed in the database, use another email!"})
-            if(!gender || gender == 'select') return res.status(400).json({status: false, msg: "Please fill all the fields!"})
 
             const encryptedPassword = await bcrypt.hash(password, 12)
 
             const user = await models.users.create({
                 name, password: encryptedPassword, email, city, dob, phone, gender
             })
-
-            if(!user) return res.status(404).json({status: false, msg: "New user is not registered successfully!"})
 
             const refresh_token = createRefreshToken({id: user.id})
 
