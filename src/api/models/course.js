@@ -1,5 +1,3 @@
-const { Sequelize } = require('sequelize')
-
 module.exports = (sequelize, DataTypes) => {
     const courses = sequelize.define('courses', {
         id: {
@@ -23,7 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         rating: {
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: true,
+            validate: {
+                min: 0,
+                max: 5
+            }
         },
         publisher: {
             type: DataTypes.STRING,

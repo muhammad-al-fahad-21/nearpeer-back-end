@@ -84,7 +84,7 @@ class CourseController {
             const { id } = req.params
             const user = req.header('user_id')
 
-            const {title, description, rating, publisher, lastest_update, upload_date } = req.body
+            const {title, description, rating, publisher, last_update, upload_date } = req.body
 
             if(user <= 0) return res.status(402).json({success: false, msg: "Required a valid user id!"})
 
@@ -94,6 +94,7 @@ class CourseController {
                 }
             })
 
+            if(!find) return res.status(404).json({success: false, msg: 'User does not exists!'})
 
             const cor = await models.courses.findOne({
                 where: {
@@ -101,12 +102,10 @@ class CourseController {
                 }
             })
 
-            const result = !cor ? 'Course' : !find ? 'User' : ''
-
-            if(result !== '') return res.status(404).json({success: false, msg: `${result} does not exists!`})
+            if(!cor) return res.status(404).json({success: false, msg: 'Course does not exists!'})
 
             const course = await models.courses.update({
-                user_id: user, title, description, rating, publisher, lastest_update, upload_date
+                user_id: user, title, description, rating, publisher, last_update, upload_date
             }, {
                 where: {
                     id: id

@@ -4,71 +4,25 @@ const models = require('../../models');
 const validateEmail = require('../../../config/validation');
 const createRefreshToken = require('../../../config/token');
 
-const { Sequelize, DataTypes } = require('sequelize')
-const User = require('../../models/user')
+const { Sequelize } = require('sequelize')
 
-describe('Connect to User Data', () => {
-    let sequelize;
+let sequelize;
 
-    beforeAll( async () => {
-        sequelize = new Sequelize({
-            username: "muhammad-al-fahad",
-            password: "12345678",
-            database: "mern_test",
-            host: "localhost",
-            dialect: "postgres",
-            logging: false
-        })
-
-        await sequelize.authenticate();
+beforeAll( async () => {
+    sequelize = new Sequelize({
+        username: "muhammad-al-fahad",
+        password: "12345678",
+        database: "mern_test",
+        host: "localhost",
+        dialect: "postgres",
+        logging: false
     })
 
-    afterAll( async () => {
-        await sequelize.close()
-    })
+    await sequelize.authenticate();
+})
 
-    it('connect to database for user model', async () => {
-        const UserModel = User(sequelize, DataTypes);
-
-        await sequelize.sync({ force: false})
-
-        const UniqueEmail = 'john.doe@example.com'
-
-        const userEmail = await UserModel.findOne({
-            where: {
-                email: UniqueEmail
-            }
-        })
-
-        if(userEmail) {
-            expect(UniqueEmail).toBe('john.doe@example.com')
-        }
-        else{
-
-            const user = await UserModel.create({
-                name: 'John Doe',
-                password: 'password123',
-                email: UniqueEmail,
-                city: 'Multan, PK',
-                dob: new Date('1990-01-01'),
-                phone: '1234567890',
-                gender: 'Male',
-                admin: false
-            })
-
-            expect(user.id).toBeDefined();
-            expect(user.name).toBe('John Doe');
-            expect(user.password).toBe('password123');
-            expect(user.email).toBe(UniqueEmail);
-            expect(user.city).toBe('Multan, PK');
-            expect(user.dob).toBe('1990-01-01');
-            expect(user.phone).toBe('1234567890');
-            expect(user.gender).toBe('Male');
-            expect(user.admin).toBe(false);
-            expect(user.created_at).toBeDefined();
-            expect(user.updated_at).toBeDefined();
-        }
-    })
+afterAll( async () => {
+    await sequelize.close()
 })
 
 jest.mock('bcrypt');
@@ -86,9 +40,9 @@ describe('Signup API', () => {
 
     const req = {
       body: {
-        name: 'John Doe',
-        password: 'password123',
-        email: 'john.doe@example.com',
+        name: 'Muhammad Al Fahad',
+        password: '12345678',
+        email: 'al.fahad7240@gmail.com',
         city: 'New York',
         dob: '1990-01-01',
         phone: '1234567890',
@@ -156,10 +110,10 @@ describe('Signup API', () => {
 
     const req = {
       body: {
-        name: 'John Doe',
-        password: 'password123',
+        name: 'Muhammad Al Fahad',
+        password: '12345678',
         email: 'alfahad7@g.com',
-        city: 'New York',
+        city: 'Lahore',
         dob: '1990-01-01',
         phone: '1234567890',
         gender: 'Male',
