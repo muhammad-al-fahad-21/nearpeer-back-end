@@ -131,7 +131,7 @@ describe('Signup API', () => {
 
     expect(validateEmail).toHaveBeenCalledWith(req.body.email);
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({ status: false, msg: 'Invalid Email!' });
+    expect(res.json).toHaveBeenCalledWith({ success: false, msg: 'Invalid Email!' });
   });
 
   it('should handle existing email', async () => {
@@ -177,7 +177,7 @@ describe('Signup API', () => {
       },
     });
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({ status: false, msg: 'This email is already existed in the database, use another email!' });
+    expect(res.json).toHaveBeenCalledWith({ success: false, msg: 'This email is already existed in the database, use another email!' });
   });
 
   it('should handle server error', async () => {

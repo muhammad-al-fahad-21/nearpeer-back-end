@@ -8,7 +8,7 @@ class UserController {
         try{
             const {name, password, email, city, dob, phone, gender} = req.body
             
-            if(!validateEmail(email)) return res.status(400).json({status: false, msg: "Invalid Email!"})
+            if(!validateEmail(email)) return res.status(400).json({success: false, msg: "Invalid Email!"})
 
             const findUser = await models.users.findOne({
                 where: {
@@ -16,7 +16,7 @@ class UserController {
                 }
             })
 
-            if(findUser) return res.status(400).json({status: false, msg: "This email is already existed in the database, use another email!"})
+            if(findUser) return res.status(400).json({success: false, msg: "This email is already existed in the database, use another email!"})
 
             const encryptedPassword = await bcrypt.hash(password, 12)
 
@@ -30,6 +30,7 @@ class UserController {
 
             res.status(202).json({success: true, msg: "Signup Successfully", refresh_token: refresh_token, user: user})
         }catch(err) {
+            console.log(err.message)
             return res.status(500).json({success: false, msg: err.message})
         }
     }

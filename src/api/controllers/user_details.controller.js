@@ -40,7 +40,7 @@ class UserController {
             const { id } = req.params
             const { admin } = req.body
 
-            if(!id) return res.status(400).json({success: false, msg: "Inavlid user id!"})
+            if(id === '' || id < 1) return res.status(400).json({success: false, msg: "Inavlid user id!"})
 
             const find = await models.users.findOne({
                 where: {

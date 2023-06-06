@@ -5,7 +5,7 @@ const isAuthenticated = (req, res, next) => {
 
         const token = req.header('Authorization');
 
-        if(!token) return res.status(400).json({success: false, msg: '400, Invalid Authentication'})
+        if(!token) return res.status(400).json({success: false, msg: 'Please Login'})
 
         jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
 
