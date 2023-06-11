@@ -1,11 +1,12 @@
 {
-  "name": "mern_stack_test",
+  "name": "mern_test",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
   "scripts": {
     "test": "jest --watchAll --verbose --coverage --detectOpenHandles --forceExit ./src/api/tests",
-    "start": "node ./src/index.js"
+    "start": "NODE_ENV=development node ./src/index.js",
+    "build": "NODE_ENV=production node ./src/index.js"
   },
   "repository": {
     "type": "git",
