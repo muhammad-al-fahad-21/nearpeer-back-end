@@ -1,26 +1,29 @@
 require('dotenv').config()
 module.exports = {
     development: {
-        username: "muhammad-al-fahad",
+        username: "postgres",
         password: "12345678",
         database: "mern_test",
         host: "localhost",
+        port: 5431,
         dialect: "postgres",
         logging: false
     },
     test: {
-        username: "muhammad-al-fahad",
+        username: "postgres",
         password: "12345678",
         database: "mern_test",
         host: "localhost",
+        port: 5431,
         dialect: "postgres",
         logging: false
     },
     production: {
-        username: "muhammad-al-fahad",
+        username: "postgres",
         password: "12345678",
         database: "mern_test",
         host: "localhost",
+        port: 5431,
         dialect: "postgres",
         logging: false
     }
