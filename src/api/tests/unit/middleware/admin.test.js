@@ -1,5 +1,5 @@
-const model = require('../../models')
-const isAdmin = require('../../middlewares/authAdmin')
+const model = require('../../../models')
+const isAdmin = require('../../../middlewares/authAdmin')
 
 const { Sequelize } = require('sequelize')
 
@@ -7,13 +7,15 @@ let sequelize;
 
 beforeAll( async () => {
     sequelize = new Sequelize({
-        username: "muhammad-al-fahad",
-        password: "12345678",
-        database: "mern_test",
-        host: "localhost",
+        username: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
+        host: process.env.DB_HOST,
         dialect: "postgres",
         logging: false
     })
+
+    console.log(process.env.DB_USER, process.env.DB_PASS, process.env.DB_NAME, process.env.DB_HOST)
 
     await sequelize.authenticate();
 })

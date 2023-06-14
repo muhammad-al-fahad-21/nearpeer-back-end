@@ -1,5 +1,5 @@
 const request = require('supertest');
-const models = require('../../models');
+const models = require('../../../models');
 
 const { Sequelize } = require('sequelize')
 
@@ -9,10 +9,10 @@ let email;
 
 beforeAll( async () => {
     sequelize = new Sequelize({
-        username: "muhammad-al-fahad",
-        password: "12345678",
-        database: "mern_test",
-        host: "localhost",
+        username: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
+        host: process.env.DB_HOST,
         dialect: "postgres",
         logging: false
     })
@@ -27,7 +27,7 @@ afterAll( async () => {
 describe('signup a new user', () => {
 
     beforeEach(async () => {
-        server = require('../../../index');
+        server = require('../../../../index');
         email = 'gameofpass@example.com'
     })
 
@@ -37,7 +37,7 @@ describe('signup a new user', () => {
                 email
             }
         })
-        server.close();
+        await server.close();
     })
 
     describe('POST /signup', () => {

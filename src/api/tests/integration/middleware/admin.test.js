@@ -1,6 +1,6 @@
 const request = require('supertest');
-const models = require('../../models');
-const createRefreshToken = require('../../../config/token')
+const models = require('../../../models');
+const createRefreshToken = require('../../../../config/token')
 
 const { Sequelize } = require('sequelize')
 
@@ -14,10 +14,10 @@ jest.mock('bcrypt')
 
 beforeAll( async () => {
     sequelize = new Sequelize({
-        username: "muhammad-al-fahad",
-        password: "12345678",
-        database: "mern_test",
-        host: "localhost",
+        username: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
+        host: process.env.DB_HOST,
         dialect: "postgres",
         logging: false
     })
@@ -32,7 +32,7 @@ afterAll( async () => {
 describe('admin middleware', () => {
 
     beforeEach(async () => {
-        server = require('../../../index');
+        server = require('../../../../index');
         email = 'abc@example.com'
         password = 'password123'
         token = 'invalidToken'
@@ -44,7 +44,7 @@ describe('admin middleware', () => {
                 email
             }
         })
-        server.close();
+        await server.close();
     })
 
     describe('isAdmin', () => {

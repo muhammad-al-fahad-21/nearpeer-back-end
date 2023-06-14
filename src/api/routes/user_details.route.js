@@ -13,8 +13,6 @@ router.route('/info')
 
 router.route('/profile')
     .get(isAuthenticated, controller.getProfile)
-    
-router.route('/:id')
     .put(isAuthenticated, controller.updateProfile)
 
 router.route('/isAdmin/:id')

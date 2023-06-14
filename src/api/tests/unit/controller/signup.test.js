@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
-const controller = require('../../controllers/signup.controller');
-const models = require('../../models');
-const validateEmail = require('../../../config/validation');
-const createRefreshToken = require('../../../config/token');
+const controller = require('../../../controllers/signup.controller');
+const models = require('../../../models');
+const validateEmail = require('../../../../config/validation');
+const createRefreshToken = require('../../../../config/token');
 
 const { Sequelize } = require('sequelize')
 
@@ -10,10 +10,10 @@ let sequelize;
 
 beforeAll( async () => {
     sequelize = new Sequelize({
-        username: "muhammad-al-fahad",
-        password: "12345678",
-        database: "mern_test",
-        host: "localhost",
+        username: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
+        host: process.env.DB_HOST,
         dialect: "postgres",
         logging: false
     })
@@ -26,9 +26,9 @@ afterAll( async () => {
 })
 
 jest.mock('bcrypt');
-jest.mock('../../models');
-jest.mock('../../../config/validation');
-jest.mock('../../../config/token');
+jest.mock('../../../models');
+jest.mock('../../../../config/validation');
+jest.mock('../../../../config/token');
 
 describe('Signup API', () => {
 

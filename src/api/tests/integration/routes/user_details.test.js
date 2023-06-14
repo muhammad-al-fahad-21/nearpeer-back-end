@@ -1,6 +1,6 @@
 const request = require('supertest');
-const models = require('../../models');
-const createRefreshToken = require('../../../config/token')
+const models = require('../../../models');
+const createRefreshToken = require('../../../../config/token')
 const jwt = require('jsonwebtoken')
 
 const { Sequelize } = require('sequelize')
@@ -14,10 +14,10 @@ let adminEmail;
 
 beforeAll( async () => {
     sequelize = new Sequelize({
-        username: "muhammad-al-fahad",
-        password: "12345678",
-        database: "mern_test",
-        host: "localhost",
+        username: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
+        host: process.env.DB_HOST,
         dialect: "postgres",
         logging: false
     })
@@ -32,7 +32,7 @@ afterAll( async () => {
 describe('User Details', () => {
 
     beforeEach(async () => {
-        server = require('../../../index');
+        server = require('../../../../index');
         email = 'abc@example.com'
         adminEmail = 'cde@example.com'
         password = 'password123'
@@ -45,8 +45,8 @@ describe('User Details', () => {
                 email: [email, adminEmail]
             }
         });
-        jest.restoreAllMocks();
-        server.close();
+        await jest.restoreAllMocks();
+        await server.close();
     })
 
     describe('Get All Users', () => {

@@ -1,5 +1,5 @@
 const request = require('supertest');
-const models = require('../../models');
+const models = require('../../../models');
 const bcrypt = require('bcrypt')
 
 const { Sequelize } = require('sequelize')
@@ -13,10 +13,10 @@ jest.mock('bcrypt')
 
 beforeAll( async () => {
     sequelize = new Sequelize({
-        username: "muhammad-al-fahad",
-        password: "12345678",
-        database: "mern_test",
-        host: "localhost",
+        username: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
+        host: process.env.DB_HOST,
         dialect: "postgres",
         logging: false
     })
@@ -31,7 +31,7 @@ afterAll( async () => {
 describe('Login User', () => {
 
     beforeEach(() => {
-        server = require('../../../index');
+        server = require('../../../../index');
         email = 'abc@example.com'
         password = 'password123'
     })
@@ -42,7 +42,7 @@ describe('Login User', () => {
                 email: [email, 'example@gmail.com']
             }
         })
-        server.close();
+        await server.close();
     })
 
     describe('POST /login', () => {
