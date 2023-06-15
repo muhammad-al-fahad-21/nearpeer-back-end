@@ -115,7 +115,7 @@ describe('User Details', () => {
 
             token = createRefreshToken({id: user.id})
 
-            const res = await request(server).put(`/api/user/${user.id}`).set('Authorization', token).send(updateUser)
+            const res = await request(server).put('/api/user/profile').set('Authorization', token).send(updateUser)
 
             const getUser = await models.users.findOne({
                 where: {
@@ -155,7 +155,7 @@ describe('User Details', () => {
 
             token = createRefreshToken({id: user.id})
 
-            const res = await request(server).put(`/api/user/${user.id}`).set('Authorization', token).send(updateUser)
+            const res = await request(server).put('/api/user/profile').set('Authorization', token).send(updateUser)
 
             expect(res.status).toBe(500)
             expect(res.body.msg).toBeDefined()
@@ -314,6 +314,9 @@ describe('User Details', () => {
         })
 
         it('should return 500 error if unexpected error occured', async () => {
+            jest.spyOn(jwt, 'verify').mockImplementation(() => {
+                throw new Error('something went wrong')
+            })
 
             const User = {
                 name: 'John Doe',
@@ -343,7 +346,7 @@ describe('User Details', () => {
 
             token = createRefreshToken({id: admin.id});
 
-            const res = await request(server).put(`/api/user/isAdmin/`).set('Authorization', token).send({admin: true})
+            const res = await request(server).put(`/api/user/isAdmin/${user.id}`).set('Authorization', token).send({admin: true})
 
             expect(res.status).toBe(500)
             expect(res.body.success).toBe(false)
