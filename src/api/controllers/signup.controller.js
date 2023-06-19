@@ -30,7 +30,6 @@ class UserController {
 
             res.status(202).json({success: true, msg: "Signup Successfully", refresh_token: refresh_token, user: user})
         }catch(err) {
-            console.log(err.message)
             return res.status(500).json({success: false, msg: err.message})
         }
     }
