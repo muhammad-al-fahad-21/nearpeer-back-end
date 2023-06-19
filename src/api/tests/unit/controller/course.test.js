@@ -641,7 +641,7 @@ describe('Update User Course', () => {
 
     it('should return error message if user id is invalid', async () => {
         const req = {
-            header: jest.fn().mockReturnValue('-1'),
+            header: jest.fn().mockReturnValue(''),
             params: {
                 id: 1
             },
@@ -662,7 +662,7 @@ describe('Update User Course', () => {
 
         await controller.updateCourse(req, res)
 
-        expect(req.header('user_id')).toBe('-1')
+        expect(req.header('user_id')).toBe('')
 
         expect(res.status).toHaveBeenCalledWith(402)
         expect(res.json).toHaveBeenCalledWith({success: false, msg: "Required a valid user id!"})

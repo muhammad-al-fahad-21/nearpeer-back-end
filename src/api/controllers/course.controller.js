@@ -86,7 +86,7 @@ class CourseController {
 
             const {title, description, rating, publisher, last_update, upload_date } = req.body
 
-            if(user <= 0) return res.status(402).json({success: false, msg: "Required a valid user id!"})
+            if(!user) return res.status(402).json({success: false, msg: "Required a valid user id!"})
 
             const find = models.users.findOne({
                 where: {

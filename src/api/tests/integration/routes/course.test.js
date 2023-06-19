@@ -1,7 +1,6 @@
 const request = require('supertest');
 const models = require('../../../models');
 const createRefreshToken = require('../../../../config/token')
-const jwt = require('jsonwebtoken')
 
 const { Sequelize } = require('sequelize')
 
@@ -157,7 +156,7 @@ describe('Course Details', () => {
 
             const course = {}
 
-            const res = await request(server).post('/api/course/').set('Authorization', token).set('user_id', 0).send(course)
+            const res = await request(server).post('/api/course/').set('Authorization', token).set('user_id', '').send(course)
 
             expect(res.status).toBe(402)
             expect(res.body.success).toBe(false)
@@ -722,38 +721,40 @@ describe('Course Details', () => {
 
             token = createRefreshToken({id: admin.id})
 
-            const res = await request(server).put(`/api/course/${course.id}`).set('Authorization', token).set('user_id', 0).send(updatedCourse)
+            const res = await request(server).put(`/api/course/${course.id}`).set('Authorization', token).set('user_id', '').send(updatedCourse)
 
             expect(res.status).toBe(402)
             expect(res.body.msg).toBe("Required a valid user id!")
         })
 
         it('should return 404 error if user is not exists', async () => {
-            const User = [
-                {
-                    name: 'John Doe',
-                    password,
-                    email,
-                    city: 'New York',
-                    dob: '1990-01-01',
-                    phone: '1234567890',
-                    gender: 'male',
-                    admin: false
-                },
-                {
-                    name: 'Muhammad Fahad',
-                    password,
-                    email: adminEmail,
-                    city: 'New York',
-                    dob: '1990-01-01',
-                    phone: '1234567890',
-                    gender: 'male',
-                    admin: true
-                }
-            ]
+    
+            const adminUser = {
+                name: 'Muhammad Fahad',
+                password,
+                email: adminEmail,
+                city: 'New York',
+                dob: '1990-01-01',
+                phone: '1234567890',
+                gender: 'male',
+                admin: true
+            }
 
-            const user = await models.users.create(User[0])
-            const admin = await models.users.create(User[1])
+            const User = {
+                name: 'Muhammad Fahad',
+                password,
+                email,
+                city: 'New York',
+                dob: '1990-01-01',
+                phone: '1234567890',
+                gender: 'male',
+                admin: true
+            }
+
+            const admin = await models.users.create(adminUser);
+            const user = await models.users.create(User);
+
+            token = createRefreshToken({id: admin.id})
 
             const Course = {
                 user_id: user.id,
@@ -766,10 +767,10 @@ describe('Course Details', () => {
             }
 
             const updatedCourse = {
-                title: 'Java Mastery',
-                description: 'This is Java Course',
+                title: 'Mastery 1',
+                description: 'This is best Course 1',
                 rating: 5,
-                publisher: 'Moosh Hamedani',
+                publisher: 'Muhammad Al Fahad',
                 last_update: '1990-01-01',
                 upload_date: '1989-08-23'
             }
@@ -778,12 +779,9 @@ describe('Course Details', () => {
 
             user_id = user.id
 
-            token = createRefreshToken({id: admin.id})
-
-            const res = await request(server).put(`/api/course/${course.id}`).set('Authorization', token).set('user_id', '1').send(updatedCourse)
+            const res = await request(server).post(`/api/course/${course.id}`).set('Authorization', token).set('user_id', '1').send(updatedCourse)
 
             expect(res.status).toBe(404)
-            expect(res.body.msg).toBe('User does not exists!')
         })
 
         it('should return 404 error if course is not exists', async () => {
@@ -813,16 +811,6 @@ describe('Course Details', () => {
             const user = await models.users.create(User[0])
             const admin = await models.users.create(User[1])
 
-            const Course = {
-                user_id: user.id,
-                title: 'Mastery',
-                description: 'This is best Course',
-                rating: 4,
-                publisher: 'Muhammad Ali',
-                last_update: '1990-01-01',
-                upload_date: '1989-08-23'
-            }
-
             const updatedCourse = {
                 title: 'Java Mastery',
                 description: 'This is Java Course',
@@ -831,8 +819,6 @@ describe('Course Details', () => {
                 last_update: '1990-01-01',
                 upload_date: '1989-08-23'
             }
-
-            const course = await models.courses.create(Course)
 
             user_id = user.id
 

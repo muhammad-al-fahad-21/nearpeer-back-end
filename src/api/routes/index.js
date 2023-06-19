@@ -15,6 +15,6 @@ router.use('/login', loginRoutes);
 router.use('/course', courseRoutes);
 router.use('/signup', signupRoutes);
 router.use('/user', userDetailsRoutes);
-router.use('/logout', loginRoutes)
+router.use('/logout', logoutRoutes)
 
 module.exports = router

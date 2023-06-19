@@ -3,7 +3,7 @@ module.exports = {
     development: {
         username: "docker",
         password: "12345678",
-        database: "development",
+        database: "docker",
         host: "postgres",
         dialect: "postgres",
         logging: false
@@ -11,7 +11,7 @@ module.exports = {
     test: {
         username: "docker",
         password: "12345678",
-        database: "test",
+        database: "docker",
         host: "postgres",
         dialect: "postgres",
         logging: false
@@ -19,7 +19,7 @@ module.exports = {
     production: {
         username: "docker",
         password: "12345678",
-        database: "production",
+        database: "docker",
         host: "postgres",
         dialect: "postgres",
         logging: false

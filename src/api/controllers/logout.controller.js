@@ -3,13 +3,13 @@ const jwt = require('jsonwebtoken')
 class UserController {
     static logoutUser = async (req, res) => {
         try{
-            const token = req.headers('Authorization')
+            const token = req.header('Authorization')
 
-            if(!token) return res.status(400).json({success: false, msg: 'Please Login'})
+            if(!token) return res.status(404).json({success: false, msg: 'Please Login'})
 
             const verify = jwt.verify(token, process.env.JWT_SECRET)
 
-            if(!verify) return res.status(400).json({success: false, msg: 'Unauthorized'})
+            if(!verify) return res.status(401).json({success: false, msg: 'Unauthorized'})
             
             res.clearCookie('refresh_token', {path: '/'})
 
