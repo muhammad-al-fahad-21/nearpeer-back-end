@@ -130,14 +130,14 @@ describe('Course Details', () => {
 
             const course = {}
 
-            const res = await request(server).post('/api/course/').set('Authorization', token).set('user_id', '1').send(course)
+            const res = await request(server).post('/api/course/').set('Authorization', token).set('user_id', -1).send(course)
 
             expect(res.status).toBe(404)
             expect(res.body.success).toBe(false)
             expect(res.body.msg).toBe("User does not exists!")
         })
 
-        it('should return 402 error if invlid id is passed that is zero or less than zero', async () => {
+        it('should return 402 error if invlid id is passed', async () => {
 
             const adminUser = {
                 name: 'Muhammad Fahad',
@@ -239,8 +239,8 @@ describe('Course Details', () => {
 
             expect(res.status).toBe(202)
             expect(res.body.success).toBe(true)
-            expect(res.body.course.length).toBe(2)
-            expect(res.body.course.some(c => c.title === courses[0].title)).toBeTruthy()
+            expect(res.body.userCourse.length).toBe(2)
+            expect(res.body.userCourse.some(c => c.title === courses[0].title)).toBeTruthy()
         })
 
         it('should return 500 error if unexpected error occured', async () => {
@@ -346,8 +346,8 @@ describe('Course Details', () => {
 
             expect(res.status).toBe(202)
             expect(res.body.success).toBe(true)
-            expect(res.body.course.length).toBe(2)
-            expect(res.body.course.some(c => c.title === Courses[0].title)).toBeTruthy()
+            expect(res.body.courses.length).toBe(2)
+            expect(res.body.courses.some(c => c.title === Courses[0].title)).toBeTruthy()
         })
 
         it('should return 500 error if unexpected error occured', async () => {

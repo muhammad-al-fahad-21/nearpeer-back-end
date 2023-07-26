@@ -29,7 +29,7 @@ describe('Logout API', () => {
     await UserController.logoutUser(req, res);
 
     expect(jwt.verify).toHaveBeenCalledWith('valid_token', process.env.JWT_SECRET);
-    expect(res.clearCookie).toHaveBeenCalledWith('refresh_token', { path: '/' });
+    expect(res.clearCookie).toHaveBeenCalledWith('refresh_token', { path: '/', httpOnly: true });
     expect(res.status).toHaveBeenCalledWith(202);
     expect(res.json).toHaveBeenCalledWith({ success: true, msg: 'Logout Successfully' });
   });

@@ -8,7 +8,7 @@ class CourseController {
 
             const {title, description, rating, publisher, upload_date } = req.body
 
-            if(user <= 0) return res.status(402).json({success: false, msg: "Required a valid user id!"})
+            if(!user) return res.status(402).json({success: false, msg: "Required a valid user id!"})
 
             const find = await models.users.findOne({
                 where: {
@@ -22,7 +22,7 @@ class CourseController {
                 user_id: user, title, description, rating, publisher, upload_date
             })
 
-            res.status(202).json({success: true, msg: `Successfully created course for ${find.name}`, course: course})
+            res.status(202).json({success: true, msg: `Successfully created course for ${find.name}`, course})
         }catch(err) {
             if (err.name === 'SequelizeForeignKeyConstraintError') {
                 return res.status(404).json({ success: false, msg: "User does not exists!" });
@@ -35,13 +35,13 @@ class CourseController {
     static getUserCourses = async (req, res) => {
         try{
 
-            const course = await models.courses.findAll({
+            const userCourse = await models.courses.findAll({
                 where: {
                     user_id: req.user.id
                 }
             })
 
-            res.status(202).json({success: true, course: course})
+            res.status(202).json({success: true, userCourse})
 
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
@@ -51,9 +51,9 @@ class CourseController {
     static getAllCourses = async (req, res) => {
         try{
 
-            const course = await models.courses.findAll()
+            const courses = await models.courses.findAll()
 
-            res.status(202).json({success: true, course: course})
+            res.status(202).json({success: true, courses})
 
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
@@ -71,7 +71,7 @@ class CourseController {
                 }
             })
 
-            res.status(202).json({success: true, msg: 'Deleted Successfully', course: course})
+            res.status(202).json({success: true, msg: 'Deleted Successfully', course})
 
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
@@ -98,7 +98,7 @@ class CourseController {
 
             const cor = await models.courses.findOne({
                 where: {
-                    id: id
+                    id
                 }
             })
 
@@ -108,11 +108,11 @@ class CourseController {
                 user_id: user, title, description, rating, publisher, last_update, upload_date
             }, {
                 where: {
-                    id: id
+                    id
                 }
             })
 
-            res.status(202).json({success: true, msg: 'Updated Successfully', course: course})
+            res.status(202).json({success: true, msg: 'Updated Successfully', course})
 
         }catch(err) {
             if (err.name === 'SequelizeForeignKeyConstraintError') {
@@ -130,13 +130,13 @@ class CourseController {
 
             const course = await models.courses.findOne({
                 where: {
-                    id: id
+                    id
                 }
             })
 
             if(!course) return res.status(404).json({success: false, msg: "Course does not exists!"})
 
-            res.status(202).json({success: true, course: course})
+            res.status(202).json({success: true, course})
 
         }catch(err) {
             if (err.name === 'SequelizeForeignKeyConstraintError') {

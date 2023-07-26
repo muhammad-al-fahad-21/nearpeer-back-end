@@ -61,21 +61,15 @@ describe('admin middleware', () => {
                 admin: true
             }
 
-            await models.users.create(adminUser);
+            const admin = await models.users.create(adminUser);
 
-            const user = await models.users.findOne({
-                where: {
-                    email: adminUser.email
-                }
-            })
-
-            const token = createRefreshToken({id: user.id})
+            const token = createRefreshToken({id: admin.id})
 
             const res = await request(server).get('/api/user/').set('Authorization', token)
 
             expect(res.status).toBe(202)
             expect(res.body.success).toBe(true)
-            expect(res.body.user).toBeDefined()
+            expect(res.body.users).toBeDefined()
         })
 
         it('should return 401 error if user is not admin', async () => {
@@ -91,15 +85,9 @@ describe('admin middleware', () => {
                 admin: false
             }
 
-            await models.users.create(adminUser);
+            const admin = await models.users.create(adminUser);
 
-            const user = await models.users.findOne({
-                where: {
-                    email: adminUser.email
-                }
-            })
-
-            const token = createRefreshToken({id: user.id})
+            const token = createRefreshToken({id: admin.id})
 
             const res = await request(server).get('/api/user/').set('Authorization', token)
 

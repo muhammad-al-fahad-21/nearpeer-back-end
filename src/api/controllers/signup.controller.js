@@ -1,7 +1,7 @@
 const models = require('../models');
 const bcrypt = require('bcrypt');
 const validateEmail = require('../../config/validation')
-const createRefreshToken = require('../../config/token')
+const createActivationToken = require('../../config/token')
 
 class UserController {
     static signupUser = async (req, res) => {
@@ -12,7 +12,7 @@ class UserController {
 
             const findUser = await models.users.findOne({
                 where: {
-                    email: email
+                    email
                 }
             })
 
@@ -24,11 +24,10 @@ class UserController {
                 name, password: encryptedPassword, email, city, dob, phone, gender
             })
 
-            const refresh_token = createRefreshToken({id: user.id})
+            const refresh_token = createActivationToken({id: user.id})
 
-            res.cookie('refresh_token', refresh_token, { httpOnly: true });
-
-            res.status(202).json({success: true, msg: "Signup Successfully", refresh_token: refresh_token, user: user})
+            res.cookie('refresh_token', refresh_token, { path: '/', httpOnly: true });
+            res.status(202).json({success: true, msg: "Signup Successfully", refresh_token, user})
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
         }

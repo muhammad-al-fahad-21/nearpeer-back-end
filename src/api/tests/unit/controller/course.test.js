@@ -86,7 +86,7 @@ describe('Create Course For Specific User', () => {
 
     it('should return an error message if user id is invalid', async () => {
         const req = {
-            header: jest.fn().mockReturnValue('-1'),
+            header: jest.fn().mockReturnValue(''),
             body: {
                 title: 'Java Mastery',
                 description: 'This Java Course can cover OOP, DSA and DB. where you can create one final project using this three pattern',
@@ -109,7 +109,7 @@ describe('Create Course For Specific User', () => {
 
     it('should return an error message if user is not exists', async () => {
         const req = {
-            header: jest.fn().mockReturnValue('2'),
+            header: jest.fn().mockReturnValue('-1'),
             body: {
                 title: 'Java Mastery',
                 description: 'This Java Course can cover OOP, DSA and DB. where you can create one final project using this three pattern',
@@ -128,10 +128,10 @@ describe('Create Course For Specific User', () => {
 
         await controller.createCourse(req, res)
 
-        expect(req.header('user_id')).toBe('2')
+        expect(req.header('user_id')).toBe('-1')
         expect(models.users.findOne).toHaveBeenCalledWith({
             where: {
-                id: '2'
+                id: '-1'
             }
         })
         expect(res.status).toHaveBeenCalledWith(404)
@@ -279,7 +279,7 @@ describe('Get Specific User Courses', () => {
         })
 
         expect(res.status).toHaveBeenCalledWith(202)
-        expect(res.json).toHaveBeenCalledWith({success: true, course: courses})
+        expect(res.json).toHaveBeenCalledWith({success: true, userCourse: courses})
     })
 
     it('should handle server error', async () => {
@@ -348,7 +348,7 @@ describe('Get All Courses', () => {
         expect(models.courses.findAll).toHaveBeenCalledWith()
 
         expect(res.status).toHaveBeenCalledWith(202)
-        expect(res.json).toHaveBeenCalledWith({success: true, course: courses})
+        expect(res.json).toHaveBeenCalledWith({ courses, success: true })
     })
 
     it('should handle server error', async () => {

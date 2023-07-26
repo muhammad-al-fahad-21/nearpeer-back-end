@@ -5,9 +5,9 @@ class UserController {
     static getAllUsers = async (req, res) => {
         try{
 
-            const user = await models.users.findAll()
+            const users = await models.users.findAll()
 
-            res.status(202).json({success: true, user})
+            res.status(202).json({success: true, users})
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
         }
@@ -28,7 +28,7 @@ class UserController {
                 }
             })
 
-            res.status(202).json({success: true, msg: 'Profile Updated!', user: user})
+            res.status(202).json({success: true, msg: 'Profile Updated!', user})
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
         }
@@ -40,11 +40,11 @@ class UserController {
             const { id } = req.params
             const { admin } = req.body
 
-            if(id === '' || id < 1) return res.status(400).json({success: false, msg: "Inavlid user id!"})
+            if(id === '' || id <= 0) return res.status(400).json({success: false, msg: "Inavlid user id!"})
 
             const find = await models.users.findOne({
                 where: {
-                    id: id
+                    id
                 }
             })
 
@@ -58,7 +58,7 @@ class UserController {
                 }
             })
 
-            res.status(202).json({success: true, msg: "Role Updated!", user: user})
+            res.status(202).json({success: true, msg: "Role Updated!", user})
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
         }
@@ -67,17 +67,17 @@ class UserController {
     static getUser = async (req, res) => {
         try{
 
-            const user = req.header('id')
+            const id = req.header('id')
 
-            const find = await models.users.findOne({
+            const user = await models.users.findOne({
                 where: {
-                    id: user
+                    id
                 }
             })
 
-            if(!find) return res.status(400).json({success: false, msg: "User does not exists!"})
+            if(!user) return res.status(400).json({success: false, msg: "User does not exists!"})
 
-            res.status(202).json({success: true, user: find})
+            res.status(202).json({success: true, user})
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
         }
@@ -86,15 +86,16 @@ class UserController {
     static getProfile = async (req, res) => {
         try{
 
-            const find = await models.users.findOne({
+            const user = await models.users.findOne({
                 where: {
                     id: req.user.id
                 }
             })
 
-            if(!find) return res.status(400).json({success: false, msg: "Invalid Authentication!"})
+            if(!user) return res.status(404).json({success: false, msg: "Not Found!"})
 
-            res.status(202).json({success: true, user: find})
+            res.status(202).json({success: true, user})
+
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
         }
@@ -103,15 +104,15 @@ class UserController {
     static deleteUser = async (req, res) => {
         try{
 
-            const userId = req.header('id')
+            const id = req.header('id')
 
             const user = await models.users.destroy({
                 where: {
-                    id: userId
+                    id
                 }
             })
 
-            res.status(202).json({success: true, msg: 'Deleted Successfully', user: user})
+            res.status(202).json({success: true, msg: 'Deleted Successfully', user})
 
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})

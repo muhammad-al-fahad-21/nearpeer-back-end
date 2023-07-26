@@ -65,7 +65,7 @@ describe('Get All Users', () => {
 
         expect(res.status).toHaveBeenCalledWith(202)
 
-        expect(res.json).toHaveBeenCalledWith({success: true, user: users})
+        expect(res.json).toHaveBeenCalledWith({success: true, users})
     })
 
     it('should handle server error', async () => {
@@ -492,8 +492,8 @@ describe('Get Authorized User Profile', () => {
             }
         })
         
-        expect(res.status).toHaveBeenCalledWith(400)
-        expect(res.json).toHaveBeenCalledWith({success: false, msg: 'Invalid Authentication!'})
+        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.json).toHaveBeenCalledWith({success: false, msg: 'Not Found!'})
     })
 
     it('should handle server error', async () => {

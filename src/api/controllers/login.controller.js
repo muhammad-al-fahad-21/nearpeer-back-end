@@ -1,6 +1,6 @@
 const models = require('../models');
 const bcrypt = require('bcrypt');
-const createRefreshToken = require('../../config/token')
+const createAccessToken = require('../../config/token')
 
 class UserController {
     static loginUser = async (req, res) => {
@@ -9,7 +9,7 @@ class UserController {
 
             const encrypted = await models.users.findOne({
                 where: {
-                    email: email
+                    email
                 }
             })
 
@@ -19,7 +19,7 @@ class UserController {
 
             if(!isMatch) return res.status(401).json({success: false, msg: "Wrong Password, please try again!"})
 
-            const refresh_token = createRefreshToken({id: encrypted.id})
+            const refresh_token = createAccessToken({id: encrypted.id})
 
             const user = await models.users.findOne({
                 where: {
@@ -27,9 +27,9 @@ class UserController {
                 }
             })
 
-            res.cookie('refresh_token', refresh_token, { httpOnly: true });
+            res.cookie('refresh_token', refresh_token, { path: '/', httpOnly: true });
 
-            res.status(202).json({success: true, msg: "Login Successfully!", refresh_token: refresh_token, user: user})
+            res.status(202).json({success: true, msg: "Login Successfully!", refresh_token, user})
         }catch(err) {
             return res.status(500).json({success: false, msg: err.message})
         }

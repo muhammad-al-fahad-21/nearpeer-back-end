@@ -72,7 +72,7 @@ describe('User Details', () => {
 
             expect(res.status).toBe(202)
             expect(res.body).toHaveProperty('success', true)
-            expect(res.body).toHaveProperty('user')
+            expect(res.body).toHaveProperty('users')
         })
 
         it('should return a 500 error if unexpected error occurs', async () => {
@@ -186,15 +186,15 @@ describe('User Details', () => {
             expect(res.body.user).toHaveProperty('name', User.name)
         })
 
-        it('should return a 400 error if user is not exists', async () => {
+        it('should return a 404 error if user is not exists', async () => {
 
-            token = createRefreshToken({id: 1})
+            token = createRefreshToken({id: -1})
 
             const res = await request(server).get('/api/user/profile').set('Authorization', token)
 
-            expect(res.status).toBe(400)
+            expect(res.status).toBe(404)
             expect(res.body.success).toBe(false)
-            expect(res.body.msg).toBe("Invalid Authentication!")
+            expect(res.body.msg).toBe("Not Found!")
         })
 
         it('should return a 500 error if unexpected error is occured', async () => {
@@ -306,7 +306,7 @@ describe('User Details', () => {
 
             token = createRefreshToken({id: admin.id});
 
-            const res = await request(server).put(`/api/user/isAdmin/1`).set('Authorization', token).send({admin: true})
+            const res = await request(server).put(`/api/user/isAdmin/${99}`).set('Authorization', token).send({admin: true})
 
             expect(res.status).toBe(404)
             expect(res.body.success).toBe(false)
@@ -408,7 +408,7 @@ describe('User Details', () => {
 
             token = createRefreshToken({id: admin.id});
 
-            const res = await request(server).get('/api/user/info').set('Authorization', token).set('id', 1)
+            const res = await request(server).get('/api/user/info').set('Authorization', token).set('id', -1)
 
             expect(res.status).toBe(400)
             expect(res.body.success).toBe(false)
