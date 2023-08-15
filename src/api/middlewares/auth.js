@@ -7,7 +7,7 @@ const isAuthenticated = (req, res, next) => {
 
         if(!token) return res.status(400).json({success: false, msg: 'Please Login'})
 
-        jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        jwt.verify(token, process.env.REFRESH_TOKEN, (err, user) => {
 
             if(err) return res.status(400).json({success: false, msg: '400, Invalid Authentication'})
 
