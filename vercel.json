@@ -1,5 +1,14 @@
 {
     "version": 2,
+    "builds": [
+      {
+        "src": "src",
+        "use": "@vercel/static",
+        "config": {
+          "outputDirectory": "build"
+        }
+      }
+    ],
     "routes": [
       {
         "src": "/api/([^/]+)(.*)",
@@ -7,8 +16,16 @@
       },
       {
         "src": "/(.*)",
-        "dest": "/src/api/server.js"
+        "dest": "/src/index.js"
       }
-    ]
+    ],
+    "rewrites": [],
+    "cleanUrls": true,
+    "functions": {
+      "api/**/*.js": {
+        "maxDuration": 30
+      }
+    }
   }
+  
   
