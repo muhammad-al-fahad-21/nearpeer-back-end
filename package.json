@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "test": "NODE_ENV=test jest --watchAll --verbose --coverage --detectOpenHandles --forceExit ./src/api/tests",
     "start": "NODE_ENV=development node ./src/index.js",
