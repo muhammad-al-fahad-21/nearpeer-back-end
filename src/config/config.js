@@ -6,6 +6,11 @@ module.exports = {
         database: "verceldb",
         host: "ep-weathered-darkness-04769553-pooler.us-east-1.postgres.vercel-storage.com",
         dialect: "postgres",
+        dialectOptions: {
+            ssl: {
+                require: true
+            }
+        },
         logging: false
     },
     test: {
@@ -14,6 +19,11 @@ module.exports = {
         database: "verceldb",
         host: "ep-weathered-darkness-04769553-pooler.us-east-1.postgres.vercel-storage.com",
         dialect: "postgres",
+        dialectOptions: {
+            ssl: {
+                require: true
+            }
+        },
         logging: false
     },
     production: {
