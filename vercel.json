@@ -10,8 +10,6 @@
         "dest": "/src/api/server.js"
       }
     ],
-    "rewrites": [],
-    "cleanUrls": true,
     "functions": {
       "api/**/*.js": {
         "maxDuration": 9
