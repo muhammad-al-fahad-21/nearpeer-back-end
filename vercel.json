@@ -1,16 +1,21 @@
 {
     "version": 2,
     "routes": [
-        {
-            "src": "./src/api/(.*)",
-            "dest": "/"
-        }
+      {
+        "src": "/api/([^/]+)(.*)",
+        "dest": "/src/api/$1.js"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/src/api/server.js"
+      }
     ],
     "rewrites": [],
     "cleanUrls": true,
     "functions": {
-        "api/**/*.js": {
+      "api/**/*.js": {
         "maxDuration": 30
-        }
+      }
     }
-}
+  }
+  
