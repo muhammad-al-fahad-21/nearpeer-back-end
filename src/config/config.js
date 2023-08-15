@@ -1,26 +1,26 @@
 require('dotenv').config()
 module.exports = {
     development: {
-        username: "postgres",
-        password: "12345678",
-        database: "postgres",
-        host: "localhost",
+        username: "default",
+        password: "leH9Xt4UbczT",
+        database: "verceldb",
+        host: "ep-weathered-darkness-04769553-pooler.us-east-1.postgres.vercel-storage.com",
         dialect: "postgres",
         logging: false
     },
     test: {
-        username: "postgres",
-        password: "12345678",
-        database: "postgres",
-        host: "localhost",
+        username: "default",
+        password: "leH9Xt4UbczT",
+        database: "verceldb",
+        host: "ep-weathered-darkness-04769553-pooler.us-east-1.postgres.vercel-storage.com",
         dialect: "postgres",
         logging: false
     },
     production: {
-        username: "docker",
-        password: "12345678",
-        database: "docker",
-        host: "postgres",
+        username: "default",
+        password: "leH9Xt4UbczT",
+        database: "verceldb",
+        host: "ep-weathered-darkness-04769553-pooler.us-east-1.postgres.vercel-storage.com",
         dialect: "postgres",
         logging: false
     }
