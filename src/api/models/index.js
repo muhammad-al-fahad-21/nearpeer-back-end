@@ -9,7 +9,17 @@ const dbConfig = config[env];
 
 const db = {};
 
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, dbConfig);
+const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+    host: dbConfig.host,
+    port: dbConfig.port,
+    dialect: 'postgres',
+    dialectOptions: {
+        ssl: {
+        require: true,   // This enforces SSL
+        rejectUnauthorized: false   // Allows self-signed certificates
+        }
+    }
+});
 
 fs
     .readdirSync(__dirname)
