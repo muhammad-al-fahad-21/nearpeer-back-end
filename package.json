@@ -9,8 +9,7 @@
   "scripts": {
     "test": "NODE_ENV=test jest --watchAll --verbose --coverage --detectOpenHandles --forceExit ./src/api/tests",
     "start": "NODE_ENV=development node ./src/index.js",
-    "build": "NODE_ENV=production nodemon ./src/index.js",
-    "vercel-build": "echo hello"
+    "build": "NODE_ENV=production nodemon ./src/index.js"
   },
   "repository": {
     "type": "git",
