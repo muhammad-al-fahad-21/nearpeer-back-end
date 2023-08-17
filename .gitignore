@@ -2,3 +2,11 @@
 /node_modules
 # coverages
 /coverage
+# Docker file
+Dockerfile.dev
+Dockerfile.prod
+Dockerfile.test
+#docker ignore file
+.dockerignore
+#sequelizerc
+.sequelizerc
