@@ -10,5 +10,8 @@ app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', route)
+app.get('/', (req, res) => {
+    res.send('<h1> Welcome to nearpeer! </h1>')
+})
 
 module.exports = app

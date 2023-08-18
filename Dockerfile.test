@@ -10,6 +10,6 @@ COPY . .
 
 ENV NODE_ENV=test
 
-EXPOSE 5000
+EXPOSE 5005
 
 CMD ["npm", "test"]

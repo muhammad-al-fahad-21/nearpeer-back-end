@@ -1,25 +1,25 @@
 FROM node:19.9.0
 
-RUN addgroup --system app && adduser --system --ingroup app app
+# RUN addgroup --system app && adduser --system --ingroup app app
 
 WORKDIR /app
 
-RUN chown -R app:app /app
+# RUN chown -R app:app /app
 
-USER app
+# USER app
 
-COPY package.json ./
+COPY package*.json ./
 
 RUN npm install
 
-RUN chmod 644 package-lock.json
+# RUN chmod 644 package-lock.json
 
-COPY package-lock.json ./
+# COPY package-lock.json ./
 
 COPY . .
 
 ENV NODE_ENV=production
 
-EXPOSE 5000
+EXPOSE 5005
 
 CMD ["npm", "run", "build"]
