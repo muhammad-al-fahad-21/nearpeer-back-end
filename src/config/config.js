@@ -1,10 +1,10 @@
 require('dotenv').config()
 module.exports = {
     development: {
-        username: "default",
-        password: "leH9Xt4UbczT",
-        database: "verceldb",
-        host: "ep-weathered-darkness-04769553-pooler.us-east-1.postgres.vercel-storage.com",
+        username: "muhammadalfahad21",
+        password: "Software12&",
+        database: "postgres",
+        host: "nearpeer.postgres.database.azure.com",
         dialect: "postgres",
         dialectOptions: {
             ssl: {
@@ -14,10 +14,10 @@ module.exports = {
         logging: false
     },
     test: {
-        username: "default",
-        password: "leH9Xt4UbczT",
-        database: "verceldb",
-        host: "ep-weathered-darkness-04769553-pooler.us-east-1.postgres.vercel-storage.com",
+        username: "muhammadalfahad21",
+        password: "Software12&",
+        database: "postgres",
+        host: "nearpeer.postgres.database.azure.com",
         dialect: "postgres",
         dialectOptions: {
             ssl: {
@@ -27,10 +27,10 @@ module.exports = {
         logging: false
     },
     production: {
-        username: "default",
-        password: "leH9Xt4UbczT",
-        database: "verceldb",
-        host: "ep-weathered-darkness-04769553-pooler.us-east-1.postgres.vercel-storage.com",
+        username: "muhammadalfahad21",
+        password: "Software12&",
+        database: "postgres",
+        host: "nearpeer.postgres.database.azure.com",
         dialect: "postgres",
         dialectOptions: {
             ssl: {
