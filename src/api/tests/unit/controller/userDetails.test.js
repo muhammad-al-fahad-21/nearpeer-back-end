@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const controller = require('../../../controllers/user_details.controller');
+const controller = require('../../../controllers/userDetails.controller');
 const models = require('../../../models');
 
 const { Sequelize } = require('sequelize')
